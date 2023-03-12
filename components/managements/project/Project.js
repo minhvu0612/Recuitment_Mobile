@@ -1,54 +1,52 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export const Start = ({data}) => {
+export const Start = ({data, navigation}) => {
 
     return(
-        <View style = {styles.project}>
+        <TouchableOpacity style = {styles.project} onPress={() => navigation.navigate("Start_Item", {data: data})}>
             <View style = {[styles.project_child, styles.bottom]}>
                 <View><Text style = {styles.font}>{data.name}</Text></View>
                 <View style = {styles.project_child_process}>
-                    <Text style = {styles.project_child_process_text}>{data.state}</Text>
+                    <Text style = {styles.project_child_process_text}>{data.progress}</Text>
                 </View>
             </View>
             <View style = {styles.project_date}>
-                <View><Text style = {styles.project_date_text}>{data.start}</Text></View>
-                <View><Text style = {styles.project_date_text}>{data.dealine}</Text></View>  
+                <View><Text style = {styles.project_date_text}>Deadline: {data.deadline}</Text></View>  
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
-export const NotStart = ({data}) => {
+export const NotStart = ({data, navigation}) => {
 
     return(
-        <View style = {styles.project}>
+        <TouchableOpacity style = {styles.project} onPress={() => navigation.navigate("Not_Start_Item", {data: data})}>
             <View style = {[styles.project_child, styles.bottom]}>
                 <View><Text style = {styles.font}>{data.name}</Text></View>
                 <View style = {styles.project_child_process}>
-                    <Text style = {styles.project_child_not_process_text}>{data.state}</Text>
+                    <Text style = {styles.project_child_not_process_text}>{data.progress}</Text>
                 </View>
             </View>
             <View style = {styles.project_date}>
-                <View><Text style = {styles.project_date_text}>{data.dealine}</Text></View>  
+                <View><Text style = {styles.project_date_text}>Deadline: {data.deadline}</Text></View>  
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
-export const Complete = ({data}) => {
+export const Complete = ({data, navigation}) => {
     return(
-        <View style = {styles.project}>
+        <TouchableOpacity style = {styles.project} onPress={() => navigation.navigate("Complete_Item", {data: data})}>
             <View style = {[styles.project_child, styles.bottom]}>
                 <View><Text style = {styles.font}>{data.name}</Text></View>
                 <View style = {styles.project_child_process}>
-                    <Text style = {styles.project_child_complete_text}>{data.state} - {data.end}</Text>
+                    <Text style = {styles.project_child_complete_text}>{data.progress}</Text>
                 </View>
             </View>
             <View style = {styles.project_date}>
-                <View><Text style = {styles.project_date_text}>{data.start}</Text></View>
-                <View><Text style = {styles.project_date_text}>{data.dealine}</Text></View>  
+                <View><Text style = {styles.project_date_text}>Deadline: {data.deadline}</Text></View>  
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -62,6 +60,7 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         borderWidth: 0.3,
         borderColor: '#7a42f4',
+        zIndex: 100
     },
     project_child: {
         flexDirection: 'row',
@@ -82,21 +81,21 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffc266',
         padding: 5,
         borderRadius: 3,
-        fontSize: 8,
+        fontSize: 7,
         fontWeight: "500"
     },
     project_child_not_process_text: {
         backgroundColor: '#ff704d',
         padding: 5,
         borderRadius: 3,
-        fontSize: 8,
+        fontSize: 7,
         fontWeight: "500"
     },
     project_child_complete_text: {
-        backgroundColor: '#ff704d',
+        backgroundColor: '#00e64d',
         padding: 5,
         borderRadius: 3,
-        fontSize: 8,
+        fontSize: 7,
         fontWeight: "500"
     },
     project_date: {
