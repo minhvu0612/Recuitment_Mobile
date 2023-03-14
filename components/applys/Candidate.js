@@ -15,7 +15,7 @@ export const Candidate = () => {
         "cv_file": ""
     }
 
-    const [result, setResult] = useState();
+    const [result, setResult] = useState(null);
 
     const pickDocument = async () => {
         await DocumentPicker.getDocumentAsync({
@@ -33,7 +33,10 @@ export const Candidate = () => {
     };
 
     const applyData = () => {
-
+        if (result !== null){
+            init_data["cv_file"] = result.uri;
+            console.log(init_data);
+        }
     };
 
 
@@ -46,10 +49,7 @@ export const Candidate = () => {
                 autoCapitalize = "none"
                 onChangeText = {(e) => {
                     init_data["name"] = e;
-                    var result = e.split(" ");
-                    for (var i in result){
-                        init_data["code"] += result[i][0];
-                    }
+                    init_data["code"] = e;
                 }}/>
 
             <TextInput style = {[styles.input, styles.input_assign]}
@@ -57,28 +57,28 @@ export const Candidate = () => {
                 placeholder = "Ngày sinh"
                 placeholderTextColor = "#9a73ef"
                 autoCapitalize = "none"
-                onChangeText = {(e) => {}}/>
+                onChangeText = {(e) => {init_data["birthday"] = e}}/>
 
             <TextInput style = {[styles.input, styles.input_assign]}
                 underlineColorAndroid = "transparent"
                 placeholder = "Địa chỉ"
                 placeholderTextColor = "#9a73ef"
                 autoCapitalize = "none"
-                onChangeText = {(e) => {}}/>
+                onChangeText = {(e) => {init_data["address"] = e}}/>
 
             <TextInput style = {[styles.input, styles.input_assign]}
                 underlineColorAndroid = "transparent"
                 placeholder = "Điện thoại"
                 placeholderTextColor = "#9a73ef"
                 autoCapitalize = "none"
-                onChangeText = {(e) => {}}/>
+                onChangeText = {(e) => {init_data["phone"] = e}}/>
 
             <TextInput style = {[styles.input, styles.input_assign]}
                 underlineColorAndroid = "transparent"
                 placeholder = "CMND"
                 placeholderTextColor = "#9a73ef"
                 autoCapitalize = "none"
-                onChangeText = {(e) => {}}/>
+                onChangeText = {(e) => {init_data["citizen_id"] = e}}/>
 
             <Text style={styles.file}>{result ? result["name"]:null}</Text>
             <View style={styles.button}>
@@ -86,6 +86,16 @@ export const Candidate = () => {
                 <Button
                     title="upload your file"
                     onPress={pickDocument}
+                    color= "#9a73ef"
+                />
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.button}>
+                <TouchableOpacity>
+                <Button
+                    title="Ứng tuyển"
+                    onPress={() => applyData()}
                     color= "#9a73ef"
                 />
                 </TouchableOpacity>
