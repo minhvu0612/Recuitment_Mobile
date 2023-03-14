@@ -1,55 +1,75 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+
+/** Start Item Components */
 export const Start = ({data, navigation}) => {
 
     return(
-        <TouchableOpacity style = {styles.project} onPress={() => navigation.navigate("Start_Item", {data: data})}>
+        <TouchableOpacity style = {styles.project} 
+            onPress={() => navigation.navigate("Start_Item", {data: data, navigator: navigation})}>
             <View style = {[styles.project_child, styles.bottom]}>
-                <View><Text style = {styles.font}>{data.name}</Text></View>
+                <View>
+                    <Text style = {styles.font}>{data.name}</Text>
+                </View>
                 <View style = {styles.project_child_process}>
                     <Text style = {styles.project_child_process_text}>{data.progress}</Text>
                 </View>
             </View>
             <View style = {styles.project_date}>
-                <View><Text style = {styles.project_date_text}>Deadline: {data.deadline}</Text></View>  
+                <View>
+                    <Text style = {styles.project_date_text}>Deadline: {data.deadline}</Text>
+                </View>  
             </View>
         </TouchableOpacity>
     )
 }
 
-export const NotStart = ({data, navigation}) => {
+/** Not Start Item Components */
+export const NotStart = ({data, navigation, mount}) => {
 
     return(
-        <TouchableOpacity style = {styles.project} onPress={() => navigation.navigate("Not_Start_Item", {data: data})}>
+        <TouchableOpacity style = {styles.project} 
+            onPress={() => navigation.navigate("Not_Start_Item", {data: data, navigator: navigation, mount: mount})}>
             <View style = {[styles.project_child, styles.bottom]}>
-                <View><Text style = {styles.font}>{data.name}</Text></View>
+                <View>
+                    <Text style = {styles.font}>{data.name}</Text>
+                </View>
                 <View style = {styles.project_child_process}>
                     <Text style = {styles.project_child_not_process_text}>{data.progress}</Text>
                 </View>
             </View>
             <View style = {styles.project_date}>
-                <View><Text style = {styles.project_date_text}>Deadline: {data.deadline}</Text></View>  
+                <View>
+                    <Text style = {styles.project_date_text}>Deadline: {data.deadline}</Text>
+                </View>  
             </View>
         </TouchableOpacity>
     )
 }
 
+/** Complete Item Components */
 export const Complete = ({data, navigation}) => {
     return(
-        <TouchableOpacity style = {styles.project} onPress={() => navigation.navigate("Complete_Item", {data: data})}>
+        <TouchableOpacity style = {styles.project} 
+            onPress={() => navigation.navigate("Complete_Item", {data: data, navigator: navigation})}>
             <View style = {[styles.project_child, styles.bottom]}>
-                <View><Text style = {styles.font}>{data.name}</Text></View>
+                <View>
+                    <Text style = {styles.font}>{data.name}</Text>
+                </View>
                 <View style = {styles.project_child_process}>
                     <Text style = {styles.project_child_complete_text}>{data.progress}</Text>
                 </View>
             </View>
             <View style = {styles.project_date}>
-                <View><Text style = {styles.project_date_text}>Deadline: {data.deadline}</Text></View>  
+                <View>
+                    <Text style = {styles.project_date_text}>Deadline: {data.deadline}</Text>
+                </View>  
             </View>
         </TouchableOpacity>
     )
 }
 
+/** Styles */
 const styles = StyleSheet.create({
     project: {
         padding: 10,

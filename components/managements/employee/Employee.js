@@ -2,57 +2,32 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export const AllE = ({data, navigation}) => {
 
+    const checkEndTime = (end_day) => {
+        return new Date().getTime() - new Date(end_day).getTime();
+    }
+
     return(
-        <TouchableOpacity style = {styles.employee} onPress={() => {}}>
+        <TouchableOpacity style = {styles.employee} onPress={() => navigation.navigate("Add_Employee_To_Project", {data: data})}>
             <View style = {[styles.employee_child, styles.bottom]}>
-                <View><Text style = {styles.font}>{data.name}</Text></View>
+                <View>
+                    <Text style = {styles.font}>{data.name}</Text>
+                </View>
                 <View style = {styles.employee_child_process}>
                     {
-                        data.end_day === null ? (
-                            <Text style = {styles.employee_child_not_process_text}>Level: {data.level}</Text>
-                        ):(
+                        checkEndTime(data.end_day) < 0 ? (
                             <Text style = {styles.employee_child_complete_text}>Level: {data.level}</Text>
+                        ):(
+                            <Text style = {styles.employee_child_not_process_text}>Level: {data.level}</Text>
                         )
                     }
                 </View>
             </View>
             <View style = {styles.employee_date}>
-                <View><Text style = {styles.employee_date_text}>Part: {data.part}</Text></View>  
+                <View>
+                    <Text style = {styles.employee_date_text}>Part: {data.part}</Text>
+                </View>  
             </View>
         </TouchableOpacity>
-    )
-}
-
-export const DoingE = ({data, navigation}) => {
-
-    return(
-        <View style = {styles.employee} onPress={() => {}}>
-            <View style = {[styles.employee_child, styles.bottom]}>
-                <View><Text style = {styles.font}>{data.name}</Text></View>
-                <View style = {styles.employee_child_process}>
-                    <Text style = {styles.employee_child_not_process_text}>Level: {data.level}</Text>
-                </View>
-            </View>
-            <View style = {styles.employee_date}>
-                <View><Text style = {styles.employee_date_text}>Part: {data.part}</Text></View>  
-            </View>
-        </View>
-    )
-}
-
-export const BreakE = ({data, navigation}) => {
-    return(
-        <View style = {styles.employee} onPress={() => {}}>
-            <View style = {[styles.employee_child, styles.bottom]}>
-                <View><Text style = {styles.font}>{data.name}</Text></View>
-                <View style = {styles.employee_child_process}>
-                    <Text style = {styles.employee_child_complete_text}>Level: {data.level}</Text>
-                </View>
-            </View>
-            <View style = {styles.employee_date}>
-                <View><Text style = {styles.employee_date_text}>Part: {data.part}</Text></View>  
-            </View>
-        </View>
     )
 }
 

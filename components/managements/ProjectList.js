@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import DialogInput from 'react-native-dialog-input';
 import { Complete, NotStart, Start } from "./project/Project";
 import { addProject, fetchAllProject } from "./project/ProjectData";
+//import * as Updates from 'expo-updates';
 
 export default function Project({navigation}){
 
@@ -18,17 +19,23 @@ export default function Project({navigation}){
     const projectDataNotStart = (project) => project.filter(e => e.status === 0);
     const projectDataComplete = (project) => project.filter(e => e.status === 2);
     // state load data
-    const [mount, setMount] = useState(true);
+    const mount = useRef(true);
 
     useEffect(() => {
+        var t1 = 20000;
+        if (mount.current === true){
+            t1 = 150;
+        }
         var mounted = mount;
-        fetchAllProject().then((res) => {
-            setProject(res.data.data);
-            setMount(false);
-            console.log(1);
-        });
+        setTimeout(() => {
+            fetchAllProject().then((res) => {
+                setProject(res.data.data);
+                mount.current = false;
+                //console.log("Loading data from database ...")
+            });
+        }, t1);
         return () => mounted = false;
-    }, [mount]);
+      });
 
     return(
         <>
@@ -86,12 +93,12 @@ export default function Project({navigation}){
             <ScrollView style = {styles.view}>
                 {
                     projectDataStart(project) !== [] && state === "p" ? (
-                        forkUpdate(projectDataStart(project)).map((e, key) => <Start data = {e} navigation={navigation} key={key} />)
+                        forkUpdate(projectDataStart(project)).map((e, key) => <Start data={e} navigation={navigation} key={key} />)
                     ):null
                 }
                 {
                     projectDataNotStart(project) !== [] && state === "ns" ? (
-                        forkUpdate(projectDataNotStart(project)).map((e, key) => <NotStart data={e} navigation={navigation} key={key} />)
+                        forkUpdate(projectDataNotStart(project)).map((e, key) => <NotStart data={e} navigation={navigation} mount={mount} key={key} />)
                     ):null
                 }
                 {

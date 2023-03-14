@@ -22,7 +22,7 @@ export default function Login({navigation}){
                 autoCapitalize = "none"
                 onChangeText = {this.handlePassword}/>
             <Button
-                onPress={() => navigation.navigate("Project")}
+                onPress={() => navigation.navigate("Count_Recuitment")}
                 title = "Đăng nhập"
                 color = "#7a42f4"
             />

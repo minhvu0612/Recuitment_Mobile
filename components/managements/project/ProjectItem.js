@@ -1,8 +1,38 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Alert, Button, StyleSheet, Text, View } from "react-native";
+import { deleteProject } from "./ProjectData";
 
+
+/** ______________________________________ START _____________________________________ */
+/** Start Item Project */
 export const StartItem = ({route}) => {
 
-    const { data } = route.params;
+    const { data, navigator, mount } = route.params;
+
+    const showAlert = () => {  
+        Alert.alert(
+            "Xóa dự án",  
+            "Bạn chắc chắn muốn xóa ?",
+            [  
+                {  
+                    text: 'Cancel',  
+                    onPress: () => console.log(mount),  
+                    style: 'cancel',  
+                },  
+                {
+                    text: 'OK', 
+                    onPress: () => {
+                        deleteProject(data.code).then(
+                            () => {
+                                navigator.navigate("Project");
+                                mount.current = true;
+                            }
+                        )
+                    }
+                },  
+            ]  
+        );  
+    }  
+
     return(
         <>
         <View style = {styles.project}>
@@ -29,14 +59,14 @@ export const StartItem = ({route}) => {
         </View>
         <View style = {styles.edit}>
             <Button
-                onPress={() => navigation.navigate("Project")}
+                onPress={() => navigator.navigate("Edit_Project", {data: data, mount: mount})}
                 title = "Chỉnh sửa"
                 color = "#7a42f4"
             />
         </View>
         <View style = {styles.remove}>
             <Button
-                onPress={() => navigation.navigate("Project")}
+                onPress={() => showAlert()}
                 title = "Xóa"
                 color = "#7a42f4"
             />
@@ -45,9 +75,37 @@ export const StartItem = ({route}) => {
     )
 }
 
+
+/** ______________________________________ NOT START _____________________________________ */
+/** Not Start Item Project */
 export const NotStart = ({route}) => {
 
-    const { data } = route.params;
+    const { data, navigator, mount } = route.params;
+
+    const showAlert = () => {  
+        Alert.alert(
+            "Xóa dự án",  
+            "Bạn chắc chắn muốn xóa ?",
+            [  
+                {  
+                    text: 'Cancel',  
+                    onPress: () => console.log(mount),  
+                    style: 'cancel',  
+                },  
+                {
+                    text: 'OK', 
+                    onPress: () => {
+                        deleteProject(data.code).then(
+                            () => {
+                                navigator.navigate("Project");
+                                mount.current = true;
+                            }
+                        )
+                    }
+                },  
+            ]  
+        );  
+    } 
 
     return(
         <>
@@ -75,14 +133,14 @@ export const NotStart = ({route}) => {
         </View>
         <View style = {styles.edit}>
             <Button
-                onPress={() => navigation.navigate("Project")}
+                onPress={() => navigator.navigate("Edit_Project", {data: data, mount: mount})}
                 title = "Chỉnh sửa"
                 color = "#7a42f4"
             />
         </View>
         <View style = {styles.remove}>
             <Button
-                onPress={() => navigation.navigate("Project")}
+                onPress={() => showAlert()}
                 title = "Xóa"
                 color = "#7a42f4"
             />
@@ -91,9 +149,37 @@ export const NotStart = ({route}) => {
     )
 }
 
+
+/** ______________________________________ COMPLETE _____________________________________ */
+/** Complete Item Project */
 export const Complete = ({route}) => {
 
-    const { data } = route.params;
+    const { data, navigator, mount } = route.params;
+
+    const showAlert = () => {  
+        Alert.alert(
+            "Xóa dự án",  
+            "Bạn chắc chắn muốn xóa ?",
+            [  
+                {  
+                    text: 'Cancel',  
+                    onPress: () => console.log(mount),  
+                    style: 'cancel',  
+                },  
+                {
+                    text: 'OK', 
+                    onPress: () => {
+                        deleteProject(data.code).then(
+                            () => {
+                                navigator.navigate("Project");
+                                mount.current = true;
+                            }
+                        )
+                    }
+                },  
+            ]  
+        );  
+    }
 
     return(
         <>
@@ -121,14 +207,14 @@ export const Complete = ({route}) => {
         </View>
         <View style = {styles.edit}>
             <Button
-                onPress={() => navigation.navigate("Project")}
+                onPress={() => navigator.navigate("Edit_Project", {data: data, mount: mount})}
                 title = "Chỉnh sửa"
                 color = "#7a42f4"
             />
         </View>
         <View style = {styles.remove}>
             <Button
-                onPress={() => navigation.navigate("Project")}
+                onPress={() => showAlert()}
                 title = "Xóa"
                 color = "#7a42f4"
             />
@@ -137,6 +223,9 @@ export const Complete = ({route}) => {
     )
 }
 
+
+
+/** Styles */
 const styles = StyleSheet.create({
     // project
     project: {
@@ -212,7 +301,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
     },
 
-    // part
+    // Part
     part_view: {
         marginLeft: 10,
         marginRight: 10,
@@ -222,7 +311,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
 
-    // Edit
+    // Edit, remove
     edit: {
         marginBottom: 10,
         marginLeft: 10,
